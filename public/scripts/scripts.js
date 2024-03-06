@@ -24,10 +24,8 @@ function updatePosts() {
         <div class="card-body">
             <div class="card-text">${post.description}</div>
         </div> 
-        
-        <!-- <button type="button" class="btn btn-danger">Delete</button>
-     --> 
-     </div>`;
+        <button type="button" class="btn btn-outline-danger">Delete</button>
+    </div>`;
 
         postElements += postElement; // put all of it together
       });
