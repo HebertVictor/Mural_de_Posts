@@ -24,7 +24,9 @@ function updatePosts() {
         <div class="card-body">
             <div class="card-text">${post.description}</div>
         </div> 
-        <button type="button" class="btn btn-outline-danger">Delete</button>
+        <button id=${
+          post.id + "B"
+        } onclick="deletePost(event)" type="button" class="btn btn-outline-danger">Delete</button>
     </div>`;
 
         postElements += postElement; // put all of it together
@@ -43,15 +45,37 @@ function newPost() {
 
   const url = "http://localhost:3000/api/new";
 
-  options = fetch(url, {
+  fetch(url, {
     method: "post",
     headers: new Headers({ "content-type": "application/json" }),
     body: JSON.stringify(post),
   }).then((res) => {
-    console.log(res);
     updatePosts();
 
     document.getElementById("title").value = "";
     document.getElementById("description").value = "";
   });
+}
+
+function deletePost(event) {
+  const url = "http://localhost:3000/api/deletePost";
+
+  let elementId = event.target.id;
+  let idToDelete = elementId.slice(0, -1);
+
+  let post = { id: idToDelete };
+
+  let erase = prompt(
+    "Are you sure you want to delete the post? Type Yes or No"
+  );
+
+  if (erase.toUpperCase() === "YES") {
+    fetch(url, {
+      method: "delete",
+      headers: new Headers({ "content-type": "application/json" }),
+      body: JSON.stringify(post),
+    }).then((res) => {
+      updatePosts();
+    });
+  }
 }

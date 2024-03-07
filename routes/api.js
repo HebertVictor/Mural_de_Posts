@@ -11,8 +11,6 @@ router.post("/new", bodyParser.json(), (req, res) => {
   let title = req.body.title;
   let description = req.body.description;
 
-  console.log(title);
-
   posts.newPost(title, description);
 
   res.send("Post adcionado");
@@ -20,7 +18,6 @@ router.post("/new", bodyParser.json(), (req, res) => {
 
 router.delete("/deletePost", bodyParser.json(), (req, res) => {
   let idToDelete = req.body.id;
-  console.log(idToDelete);
   posts.deletePost(idToDelete);
 
   res.send("post deletado");
