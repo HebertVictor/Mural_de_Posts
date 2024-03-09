@@ -45,16 +45,20 @@ function newPost() {
 
   const url = "http://localhost:3000/api/new";
 
-  fetch(url, {
-    method: "post",
-    headers: new Headers({ "content-type": "application/json" }),
-    body: JSON.stringify(post),
-  }).then((res) => {
-    updatePosts();
+  if (title && description !== "") {
+    fetch(url, {
+      method: "post",
+      headers: new Headers({ "content-type": "application/json" }),
+      body: JSON.stringify(post),
+    }).then((res) => {
+      updatePosts();
 
-    document.getElementById("title").value = "";
-    document.getElementById("description").value = "";
-  });
+      document.getElementById("title").value = "";
+      document.getElementById("description").value = "";
+    });
+  } else {
+    alert("The title and description cannot be empty");
+  }
 }
 
 function deletePost(event) {
