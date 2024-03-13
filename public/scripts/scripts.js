@@ -12,7 +12,14 @@ function updatePosts() {
     .then((json) => {
       let postElements = "";
 
-      let posts = JSON.parse(json);
+      let postList = JSON.parse(json);
+
+      let posts = "";
+      if (sort) {
+        posts = postList;
+      } else {
+        posts = postList.slice().reverse();
+      }
 
       posts.forEach((post) => {
         // for each post in the array make this html structure
@@ -65,6 +72,18 @@ function newPost() {
   } else {
     alert("The title and description cannot be empty");
   }
+}
+
+let sort = false;
+
+function sortPost() {
+  if (sort) {
+    sort = false;
+  } else {
+    sort = true;
+  }
+
+  updatePosts();
 }
 
 function deletePost(event) {
